@@ -190,6 +190,13 @@
   },
   "components": {
     "schemas": {
+      "Search": {
+        "properties": {
+          "referenceId": {
+            "type": "string"
+          }
+        }
+      },
       "Error": {
         "required": [
           "error",
