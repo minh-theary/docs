@@ -186,6 +186,43 @@
           }
         }
       }
+    },
+    "/consent": {
+      "post": {
+        "description": "Register new webhook endpoint with Theary",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookEndpoint"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Search response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Search"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -204,7 +241,7 @@
           },
           "eventType": {
             "type": "string",
-            "oneOf": [
+            "enum": [
               "SEARCH_STATUS",
               "SEARCH_ACTIVITY"
             ]
