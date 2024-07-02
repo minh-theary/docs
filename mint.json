@@ -1,4 +1,41 @@
 {
+  "name": "Theary API reference",
   "openapi": "/api-reference/openapi.json",
-  
+  "logo": {
+    "dark": "/logo/theary-logo.svg",
+    "light": "/logo/theary-logo.svg"
+  },
+  "favicon": "favicon.svg",
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373",
+    "anchors": {
+      "from": "#0D9373",
+      "to": "#07C983"
+    }
+  },
+  "navigation": [
+    {
+      "group": "Theary API endpoints",
+      "pages": [
+        "api-reference/theary-endpoint/getSearch",
+        "api-reference/theary-endpoint/getSearches",
+        "api-reference/theary-endpoint/postSearch",
+        "api-reference/theary-endpoint/updateSearch",
+        "api-reference/theary-endpoint/deleteSearch",
+        "api-reference/theary-endpoint/postConsent",
+        "api-reference/theary-endpoint/postEvent",
+        "api-reference/theary-endpoint/deleteEvent"
+      ]
+    },
+    {
+      "group": "Client API endpoints",
+      "pages": [
+        "api-reference/client-endpoint/getSearch",
+        "api-reference/client-endpoint/getSearches",
+        "api-reference/client-endpoint/postSearch"
+      ]
+    }
+  ]
 }
