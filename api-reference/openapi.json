@@ -121,7 +121,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewSearch"
+                "$ref": "#/components/schemas/Search"
               }
             }
           },
@@ -157,7 +157,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewSearch"
+                "$ref": "#/components/schemas/Search"
               }
             }
           },
@@ -194,6 +194,20 @@
         "properties": {
           "referenceId": {
             "type": "string"
+          }
+        }
+      },
+      "WebhookEndpoint": {
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "eventType": {
+            "type": "string",
+            "oneOf": [
+              "SEARCH_STATUS",
+              "SEARCH_ACTIVITY"
+            ]
           }
         }
       },
