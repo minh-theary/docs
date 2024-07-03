@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "http://sandbox.theary.ai"
     }
   ],
   "security": [
@@ -21,13 +21,23 @@
   "paths": {
     "/search/status/{referenceId}": {
       "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "referenceId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
         "description": "Return a Search using reference id",
         "responses": {
           "200": {
             "description": "Search response",
             "content": {
               "application/json": {
-                "schema": {
+                "schema": { 
                   "type": "object",
                   "$ref": "#/components/schemas/Search"
                 }
@@ -113,9 +123,11 @@
             }
           }
         }
-      },
+      }
+    },
+    "/search/{referenceId}": {
       "delete": {
-        "description": "Create a new search with Theary",
+        "description": "Remove an existing Theary search record",
         "requestBody": {
           "description": "Search to add to Theary system",
           "content": {
@@ -151,7 +163,7 @@
         }
       },
       "put": {
-        "description": "Create a new search with Theary",
+        "description": "Update an existing Theary search record",
         "requestBody": {
           "description": "Search to add to Theary system",
           "content": {
@@ -189,7 +201,44 @@
     },
     "/consent": {
       "post": {
-        "description": "Register new webhook endpoint with Theary",
+        "description": "Upload consent document related to a search",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadedFile"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Search response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadedFile"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event": {
+      "post": {
+        "description": "Register a new endpoint to receive webhook",
         "requestBody": {
           "content": {
             "application/json": {
@@ -206,7 +255,48 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Search"
+                  "$ref": "#/components/schemas/WebhookEndpoint"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event/{webhookEndpointId}": {
+      "delete": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "webhookEndpointId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": true
+                    }
+                  }
                 }
               }
             }
@@ -229,6 +319,16 @@
     "schemas": {
       "Search": {
         "properties": {
+          "referenceId": {
+            "type": "string"
+          }
+        }
+      },
+      "UploadedFile": {
+        "properties": {
+          "uploadedFileId": {
+            "type": "string"
+          },
           "referenceId": {
             "type": "string"
           }
