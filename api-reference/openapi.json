@@ -31,7 +31,7 @@
             "required": true
           }
         ],
-        "description": "Return a Search using reference id",
+        "description": "Return a search using reference id",
         "responses": {
           "200": {
             "description": "Search response",
@@ -59,7 +59,7 @@
     },
     "/search/list": {
       "get": {
-        "description": "Return a list of searches in Theary system",
+        "description": "Return a list of searches based on query parameters",
         "responses": {
           "200": {
             "description": "Search response",
@@ -89,7 +89,7 @@
     },
     "/search": {
       "post": {
-        "description": "Create a new search with Theary",
+        "description": "Register a new search in the Theary system",
         "requestBody": {
           "description": "Search to add to Theary system",
           "content": {
@@ -108,6 +108,48 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Search"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/updates": {
+      "post": {
+        "description": "Endpoint to received updates to a search's status and activities",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Search response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "default": true
+                    }
+                  }
                 }
               }
             }
@@ -321,6 +363,33 @@
         "properties": {
           "referenceId": {
             "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "number"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "companyLocation": {
+            "type": "string"
+          },
+          "jobTitle": {
+            "type": "string"
+          },
+          "startDate": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string"
           }
         }
       },
@@ -345,6 +414,20 @@
               "SEARCH_STATUS",
               "SEARCH_ACTIVITY"
             ]
+          }
+        }
+      },
+      "WebhookBody" : {
+        "properties": {
+          "eventType": {
+            "type": "string",
+            "enum": [
+              "SEARCH_STATUS",
+              "SEARCH_ACTIVITY"
+            ]
+          },
+          "eventPayload": {
+            "type": "object"
           }
         }
       },
